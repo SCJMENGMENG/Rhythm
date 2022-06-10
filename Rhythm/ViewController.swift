@@ -12,6 +12,7 @@ import AVKit
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
+    //https://sc.chinaz.com/yinxiao/index_23.html
     override func viewDidLoad() {
         super.viewDidLoad()
         
