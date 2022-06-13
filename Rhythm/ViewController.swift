@@ -12,6 +12,46 @@ import AVKit
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    /*
+     syntax = "proto3";
+
+     message RWMobStatPublicParams {
+       string deviceId = 1; // 设备号，除非用户卸载APP，否则取值不应变化
+       string adId = 2; // 推广id（渠道）
+       string appVer = 3; // 版本号
+       string osType = 4; // 03官网;05编辑器；08安卓；09ios；
+       string osVer = 5; // 操作系统版本号如ios11
+       string deviceName = 6; // 设备名字
+       string uuid = 7; // 内部设备ID
+       string imei = 8; // 序列号
+       string oaid = 9; // 移动安全联盟 设备唯一标识
+       string adsId = 10; // Google广告ID（ads'I'd，I为大写的i）
+       string MAC2 = 11;
+       string umengDeviceToken = 12; //umeng标识
+       string argoId = 13; // IOS特有参数 方舟的匿名id
+       string androidId = 14; //安卓
+       string idfa = 15; //iOS设备唯一标识
+     }
+
+     message RWMobStatPrivateParams {
+       string type = 1; // 埋点类型
+       string userCode = 2; // userCode
+       string openId = 3; // openId
+       string flag = 4; // 0是研发安卓 1是研发iOS 2是研发web端 3是平台安卓 4是平台iOS
+       string os = 5; // 版本号
+       string mac = 6;//mac 地址
+       string lang = 7; //语言参数
+       string token = 8; // token
+       string unity_sdk_ver = 9;//"埋点上报时客户端状态：F（前台运行时埋点），B（后台运行时埋点）
+       string selfUseCode = 10;//用户code
+       string selfOpenid = 11;//用户外部ID
+       string ts = 12;//发起请求时间戳
+       string _sid = 13;//会话ID
+       string mapId = 14;//游戏地图id，unity使用，android 当前为常量"0"
+       map<string, string> event_attributes = 15; //ext01 ext02 拓展字段
+     }
+     */
+    
     let kW:Double = Double(UIScreen.main.bounds.width)
     let kH:Double = Double(UIScreen.main.bounds.height)
     
