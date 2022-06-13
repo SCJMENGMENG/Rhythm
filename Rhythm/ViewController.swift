@@ -11,6 +11,13 @@ import AVFoundation
 import AVKit
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    let kW:Double = Double(UIScreen.main.bounds.width)
+    let kH:Double = Double(UIScreen.main.bounds.height)
+    
+    let itemW = 40.0
+    let collectMargin = 10.0
+    let space = 5.0
 
     //https://sc.chinaz.com/yinxiao/index_23.html
     override func viewDidLoad() {
@@ -33,19 +40,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             btn.tag = 100 + i
 //            self.view.addSubview(btn)
         }
-        let kW = UIScreen.main.bounds.width
-        let kH = UIScreen.main.bounds.height
         
         let layout = UICollectionViewFlowLayout.init()
-        let collection = UICollectionView.init(frame: CGRect(x: 10, y: kH - 500, width: kW - 20, height: 400), collectionViewLayout: layout)
+        let collection = UICollectionView.init(frame: CGRect(x: collectMargin, y: kH - 500, width: kW - 2*collectMargin, height: itemW * 4 + space * 3), collectionViewLayout: layout)
         collection.backgroundColor = UIColor.cyan
         collection.delegate = self
         collection.dataSource = self
         collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
-        layout.itemSize = CGSize(width: 40, height: 40)
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 5
+        layout.itemSize = CGSize(width: itemW, height: itemW)
+        layout.minimumLineSpacing = space
+        layout.minimumInteritemSpacing = space
+        layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
+        
         self.view.addSubview(collection)
         
         
@@ -89,6 +96,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.playVideo(tag: indexPath.row)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        let hW = Double(kW - 8 * itemW - 2 * collectMargin - 6 * space)
+        return section == 0 ? CGSize(width: hW, height: 0) : CGSize(width: 0, height: 0)
     }
 }
 
