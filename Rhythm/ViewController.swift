@@ -9,138 +9,239 @@ import UIKit
 import Foundation
 import AVFoundation
 import AVKit
+import SnapKit
+
+let kW:Double = Double(UIScreen.main.bounds.width)
+let kH:Double = Double(UIScreen.main.bounds.height)
+
+func kRandomColor() -> UIColor {
+    return UIColor.init(red: CGFloat(arc4random()).truncatingRemainder(dividingBy: 256) / 256.0, green: CGFloat(arc4random()).truncatingRemainder(dividingBy: 256) / 256.0, blue: CGFloat(arc4random()).truncatingRemainder(dividingBy: 256) / 256.0, alpha: 1.0)
+}
+
+let itemW = 40.0
+let collectMargin = 10.0
+let space = 5.0
+
+let dyItemW = (kW - 90) / 8.0
+let dyItemH = (kW - 90) / 8.0 + 20
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    /*
-     syntax = "proto3";
-
-     message RWMobStatPublicParams {
-       string deviceId = 1; // 设备号，除非用户卸载APP，否则取值不应变化
-       string adId = 2; // 推广id（渠道）
-       string appVer = 3; // 版本号
-       string osType = 4; // 03官网;05编辑器；08安卓；09ios；
-       string osVer = 5; // 操作系统版本号如ios11
-       string deviceName = 6; // 设备名字
-       string uuid = 7; // 内部设备ID
-       string imei = 8; // 序列号
-       string oaid = 9; // 移动安全联盟 设备唯一标识
-       string adsId = 10; // Google广告ID（ads'I'd，I为大写的i）
-       string MAC2 = 11;
-       string umengDeviceToken = 12; //umeng标识
-       string argoId = 13; // IOS特有参数 方舟的匿名id
-       string androidId = 14; //安卓
-       string idfa = 15; //iOS设备唯一标识
-     }
-
-     message RWMobStatPrivateParams {
-       string type = 1; // 埋点类型
-       string userCode = 2; // userCode
-       string openId = 3; // openId
-       string flag = 4; // 0是研发安卓 1是研发iOS 2是研发web端 3是平台安卓 4是平台iOS
-       string os = 5; // 版本号
-       string mac = 6;//mac 地址
-       string lang = 7; //语言参数
-       string token = 8; // token
-       string unity_sdk_ver = 9;//"埋点上报时客户端状态：F（前台运行时埋点），B（后台运行时埋点）
-       string selfUseCode = 10;//用户code
-       string selfOpenid = 11;//用户外部ID
-       string ts = 12;//发起请求时间戳
-       string _sid = 13;//会话ID
-       string mapId = 14;//游戏地图id，unity使用，android 当前为常量"0"
-       map<string, string> event_attributes = 15; //ext01 ext02 拓展字段
-     }
-     */
-    
-    let kW:Double = Double(UIScreen.main.bounds.width)
-    let kH:Double = Double(UIScreen.main.bounds.height)
-    
-    let itemW = 40.0
-    let collectMargin = 10.0
-    let space = 5.0
-
-    //https://sc.chinaz.com/yinxiao/index_23.html
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.initUI()
-    }
-
-    func initUI() -> Void {
-        
-        for i in 0..<9 {
-            
-            let W = i%3
-            let H = i/3
-            
-            let btn = UIButton.init(frame: CGRect.init(x: 30 + W * 120, y:100 + H * 120, width: 100, height: 100))
-            btn.backgroundColor = UIColor.red
-            btn.setTitle("i=\(i)", for: UIControl.State.normal)
-            btn.addTarget(self, action: #selector(btnClick(button:)), for: UIControl.Event.touchUpInside)
-            btn.tag = 100 + i
-//            self.view.addSubview(btn)
-        }
-        
+    var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
-        let collection = UICollectionView.init(frame: CGRect(x: collectMargin, y: kH - 500, width: kW - 2*collectMargin, height: itemW * 4 + space * 3), collectionViewLayout: layout)
+        let collection = UICollectionView.init(frame: CGRect(x: collectMargin, y: kH - 300, width: kW - 2*collectMargin, height: itemW * 4 + space * 3), collectionViewLayout: layout)
         collection.backgroundColor = UIColor.cyan
-        collection.delegate = self
-        collection.dataSource = self
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collection.layer.cornerRadius = 5
+        collection.register(RhythmCell.self, forCellWithReuseIdentifier: "RhythmCell")
         
         layout.itemSize = CGSize(width: itemW, height: itemW)
         layout.minimumLineSpacing = space
         layout.minimumInteritemSpacing = space
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
-        
-        self.view.addSubview(collection)
-        
-        
-    }
+        return collection
+    }()
     
-    @objc func btnClick(button:UIButton) -> Void {
-        print("btnClick")
-        self.playVideo(tag:button.tag - 100)
+    var dyCollection: UICollectionView = {
+        let dyLayout = UICollectionViewFlowLayout.init()
+        let dyCollection = UICollectionView(frame: CGRect(x: 0, y: 200, width: kW, height: (dyItemH * 4 + collectMargin * 3)), collectionViewLayout: dyLayout)
+        dyCollection.register(RhythmDyCell.self, forCellWithReuseIdentifier: "RhythmDyCell")
+        
+        dyLayout.itemSize = CGSize(width: dyItemW, height: dyItemH)
+        dyLayout.minimumLineSpacing = collectMargin
+        dyLayout.minimumInteritemSpacing = collectMargin
+        dyLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        return dyCollection
+    }()
+    
+    var dataSource = [NSMutableArray]()
+    var dyDataSource = [RhythmDyModel]()
+    
+    var index = 0
+    var selectPath:IndexPath?
+
+    //https://sc.chinaz.com/yinxiao/index_23.html
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor.black
+        initData()
+        initUI()
     }
 
-    func playVideo(tag:Int) -> Void {
-        let audioPath = Bundle.main.path(forResource: "bg_\(tag)", ofType: "mp3")
-//        if let url = URL(string: "http://img.youluwx.com/qa/20200917/video/c94869f4-0ddc-4e45-be7e-b0620acc544d.mp3") {
+    func initData() -> Void {
+        for _ in 0..<2 {
+            let data = NSMutableArray()
+            for _ in 0..<16 {
+                let model = RhythmModel()
+                model.color = kRandomColor()
+                model.select = false
+                data.add(model)
+            }
+            dataSource.append(data)
+        }
+        
+        for i in 0..<32 {
+            let model = RhythmDyModel()
+            model.flash = i == 0
+            dyDataSource.append(model)
+        }
+    }
+    
+    func initUI() -> Void {
+        collection.delegate = self
+        collection.dataSource = self
+        dyCollection.delegate = self
+        dyCollection.dataSource = self
+        
+        self.view.addSubview(collection)
+        self.view.addSubview(dyCollection)
+        
+        startTimer()
+    }
+    
+    //播放音频资源
+    func playRhythmData(index:Int) -> Void {
+        let audioPath = Bundle.main.path(forResource: "bg_\(index)", ofType: "mp3")
         if let filePath = audioPath {
             let url = URL(fileURLWithPath: filePath)
             let playerItem = AVPlayerItem.init(url: url)
             let play = AVPlayer.init(playerItem: playerItem)
             let playLayer = AVPlayerLayer.init(player: play)
-//            playLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
             self.view.layer.addSublayer(playLayer)
-            
             play.play()
         }
-
+    }
+    
+    //计时轮播
+    func startTimer() {
+         // 定义需要计时的时间
+         var timeCount = 32
+         // 在global线程里创建一个时间源
+         let timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+         // 设定这个时间源是每秒循环一次，立即开始
+        timer.schedule(deadline: .now(), repeating: 0.3)        // 设定时间源的触发事件
+         timer.setEventHandler(handler: {
+             let indexPathBefore:IndexPath!
+             let indexPath = IndexPath(row: self.index, section: 0)
+             if self.index > 0 {
+                 let model:RhythmDyModel = self.dyDataSource[self.index - 1]
+                 model.flash = false
+                 indexPathBefore = IndexPath(row: self.index - 1, section: 0)
+             }
+             else {
+                 let model:RhythmDyModel = self.dyDataSource[31]
+                 model.flash = false
+                 indexPathBefore = IndexPath(row: 31, section: 0)
+             }
+             let model:RhythmDyModel = self.dyDataSource[self.index]
+             model.flash = true
+             
+             self.index += 1
+             
+             // 每秒计时一次
+             timeCount = timeCount - 1
+             
+             if self.index == 32 {
+                 timeCount = 32
+                 self.index = 0
+             }
+             // 时间到了取消时间源
+             if timeCount <= 0 {
+                 timer.cancel()
+             }
+             
+             // 返回主线程处理一些事件，更新UI等等
+             DispatchQueue.main.async {
+                 print("-------%d",timeCount);
+//                 self.dyCollection.reloadItems(at: [indexPathBefore,indexPath])
+                 self.dyCollection.reloadData()
+             }
+         })
+         // 启动时间源
+         timer.resume()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        if collectionView == collection {
+            return dataSource.count
+        }
+        return  1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
+        if collectionView == collection {
+            let dataSource = dataSource[section]
+            return dataSource.count
+        }
+        return self.dyDataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = UIColor.green
+        if collectionView == collection {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RhythmCell", for: indexPath) as! RhythmCell
+            let data = dataSource[indexPath.section]
+            cell.rhythmModel = data[indexPath.row] as? RhythmModel
+            
+            return cell
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RhythmDyCell", for: indexPath) as! RhythmDyCell
+        cell.backgroundColor = CGFloat(indexPath.row).truncatingRemainder(dividingBy: 2) > 0 ? UIColor.green : UIColor.purple
+        cell.rhythmDyModel = dyDataSource[indexPath.row]
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.playVideo(tag: indexPath.row)
+        if collectionView == collection {
+            //取消collection cell选中
+            let data = dataSource[indexPath.section]
+            for item in dataSource {
+                for model in item {
+                    let rhythmModel = model as! RhythmModel
+                    rhythmModel.select = false
+                }
+            }
+            
+            //播放collection cell
+            let rhythmModel = data[indexPath.row] as? RhythmModel
+            rhythmModel?.select = true
+            rhythmModel?.playerIndex = indexPath.section * 16 + indexPath.row
+            playRhythmData(index: indexPath.section * 16 + indexPath.row)
+            collection.reloadData()
+            dyCollection.reloadData()
+            
+            selectPath = indexPath
+        }
+        else {
+            print("-------row:%d",indexPath.row);
+            let dyModel = self.dyDataSource[indexPath.row]
+            if selectPath != nil {
+                let data = dataSource[selectPath!.section]
+                let rhythmModel = data[selectPath!.row] as? RhythmModel
+                let contains: Bool = dyModel.rhythmArr.contains { model in
+                    return model == rhythmModel
+                }
+                if contains {
+                    let newDyModel = dyModel.rhythmArr.filter { (item) -> Bool in
+                        return item != rhythmModel
+                    }
+                    dyModel.rhythmArr = newDyModel
+                }
+                else {
+                    dyModel.rhythmArr.append(rhythmModel!)
+                }
+            }
+            dyCollection.reloadItems(at: [indexPath])
+//            dyCollection.reloadData()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        let hW = Double(kW - 8 * itemW - 2 * collectMargin - 6 * space)
-        return section == 0 ? CGSize(width: hW, height: 0) : CGSize(width: 0, height: 0)
+        if collectionView == collection {
+            let hW = Double(kW - 8 * itemW - 2 * collectMargin - 6 * space)
+            return section == 0 ? CGSize(width: hW, height: 0) : CGSize(width: 0, height: 0)
+        }
+        return CGSize(width: 0, height: 0)
     }
 }
 

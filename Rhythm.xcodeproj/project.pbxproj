@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08B91564163BC5B40CDB3289 /* Pods_Rhythm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D988298DE21F88ADB4C21048 /* Pods_Rhythm.framework */; };
+		7641B3DD285879670096EF94 /* RhythmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3DC285879670096EF94 /* RhythmCell.swift */; };
+		7641B3E228588B1E0096EF94 /* RhythmDyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */; };
+		7641B3E4285893700096EF94 /* RhythmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E3285893700096EF94 /* RhythmModel.swift */; };
+		7641B3E6285893B80096EF94 /* RhythmDyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E5285893B80096EF94 /* RhythmDyModel.swift */; };
 		76E9FC8128518C1C000E55D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8028518C1C000E55D8 /* AppDelegate.swift */; };
 		76E9FC8328518C1C000E55D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8228518C1C000E55D8 /* SceneDelegate.swift */; };
 		76E9FC8528518C1C000E55D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8428518C1C000E55D8 /* ViewController.swift */; };
@@ -35,6 +40,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		036DBC12566A745ACD00EE67 /* Pods-Rhythm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rhythm.release.xcconfig"; path = "Target Support Files/Pods-Rhythm/Pods-Rhythm.release.xcconfig"; sourceTree = "<group>"; };
+		7641B3DC285879670096EF94 /* RhythmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmCell.swift; sourceTree = "<group>"; };
+		7641B3E028587E4A0096EF94 /* Rhythm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rhythm-Bridging-Header.h"; sourceTree = "<group>"; };
+		7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmDyCell.swift; sourceTree = "<group>"; };
+		7641B3E3285893700096EF94 /* RhythmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmModel.swift; sourceTree = "<group>"; };
+		7641B3E5285893B80096EF94 /* RhythmDyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmDyModel.swift; sourceTree = "<group>"; };
 		76E9FC7D28518C1C000E55D8 /* Rhythm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rhythm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76E9FC8028518C1C000E55D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76E9FC8228518C1C000E55D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +73,8 @@
 		76E9FCA528520683000E55D8 /* bg_8.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_8.mp3; sourceTree = "<group>"; };
 		76E9FCA628520683000E55D8 /* bg_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_1.mp3; sourceTree = "<group>"; };
 		76E9FCA728520683000E55D8 /* bg_4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_4.mp3; sourceTree = "<group>"; };
+		7C17F63C6AFEA0EFF5A95691 /* Pods-Rhythm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rhythm.debug.xcconfig"; path = "Target Support Files/Pods-Rhythm/Pods-Rhythm.debug.xcconfig"; sourceTree = "<group>"; };
+		D988298DE21F88ADB4C21048 /* Pods_Rhythm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rhythm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,17 +82,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08B91564163BC5B40CDB3289 /* Pods_Rhythm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7641B3DB285877500096EF94 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				7641B3DC285879670096EF94 /* RhythmCell.swift */,
+				7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */,
+				7641B3E3285893700096EF94 /* RhythmModel.swift */,
+				7641B3E5285893B80096EF94 /* RhythmDyModel.swift */,
+			);
+			name = Class;
+			sourceTree = "<group>";
+		};
 		76E9FC7428518C1C000E55D8 = {
 			isa = PBXGroup;
 			children = (
 				76E9FC7F28518C1C000E55D8 /* Rhythm */,
 				76E9FC7E28518C1C000E55D8 /* Products */,
+				AA7BD13523D88B25CC958CA9 /* Pods */,
+				76ECAF28C99AA0BB23C04478 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +121,7 @@
 		76E9FC7F28518C1C000E55D8 /* Rhythm */ = {
 			isa = PBXGroup;
 			children = (
+				7641B3DB285877500096EF94 /* Class */,
 				76E9FC9428520501000E55D8 /* source */,
 				76E9FC8028518C1C000E55D8 /* AppDelegate.swift */,
 				76E9FC8228518C1C000E55D8 /* SceneDelegate.swift */,
@@ -102,6 +130,7 @@
 				76E9FC8928518C1D000E55D8 /* Assets.xcassets */,
 				76E9FC8B28518C1D000E55D8 /* LaunchScreen.storyboard */,
 				76E9FC8E28518C1D000E55D8 /* Info.plist */,
+				7641B3E028587E4A0096EF94 /* Rhythm-Bridging-Header.h */,
 			);
 			path = Rhythm;
 			sourceTree = "<group>";
@@ -132,6 +161,24 @@
 			name = source;
 			sourceTree = "<group>";
 		};
+		76ECAF28C99AA0BB23C04478 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D988298DE21F88ADB4C21048 /* Pods_Rhythm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA7BD13523D88B25CC958CA9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7C17F63C6AFEA0EFF5A95691 /* Pods-Rhythm.debug.xcconfig */,
+				036DBC12566A745ACD00EE67 /* Pods-Rhythm.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,9 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76E9FC9128518C1D000E55D8 /* Build configuration list for PBXNativeTarget "Rhythm" */;
 			buildPhases = (
+				4D105C450D6E178C4D2EE205 /* [CP] Check Pods Manifest.lock */,
 				76E9FC7928518C1C000E55D8 /* Sources */,
 				76E9FC7A28518C1C000E55D8 /* Frameworks */,
 				76E9FC7B28518C1C000E55D8 /* Resources */,
+				CB3B82125D4BCAB0E7FAEB51 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -217,14 +266,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4D105C450D6E178C4D2EE205 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rhythm-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB3B82125D4BCAB0E7FAEB51 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rhythm/Pods-Rhythm-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rhythm/Pods-Rhythm-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rhythm/Pods-Rhythm-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		76E9FC7928518C1C000E55D8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7641B3E228588B1E0096EF94 /* RhythmDyCell.swift in Sources */,
 				76E9FC8528518C1C000E55D8 /* ViewController.swift in Sources */,
 				76E9FC8128518C1C000E55D8 /* AppDelegate.swift in Sources */,
+				7641B3E6285893B80096EF94 /* RhythmDyModel.swift in Sources */,
+				7641B3E4285893700096EF94 /* RhythmModel.swift in Sources */,
 				76E9FC8328518C1C000E55D8 /* SceneDelegate.swift in Sources */,
+				7641B3DD285879670096EF94 /* RhythmCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +463,7 @@
 		};
 		76E9FC9228518C1D000E55D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C17F63C6AFEA0EFF5A95691 /* Pods-Rhythm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -390,6 +486,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dstg.Rhythm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Rhythm/Rhythm-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -397,6 +494,7 @@
 		};
 		76E9FC9328518C1D000E55D8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 036DBC12566A745ACD00EE67 /* Pods-Rhythm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -419,6 +517,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dstg.Rhythm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Rhythm/Rhythm-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
