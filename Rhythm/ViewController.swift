@@ -66,6 +66,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.view.backgroundColor = UIColor.black
         initData()
         initUI()
+        
+        startTimer()
+        timerTest()
     }
 
     func initData() -> Void {
@@ -96,7 +99,67 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.view.addSubview(collection)
         self.view.addSubview(dyCollection)
         
-        startTimer()
+        for i in 0..<8 {
+            let btn = UIButton(frame: CGRect(x: 10 + (40 + 10) * i, y: 100, width: 40, height: 40))
+            btn.backgroundColor = kRandomColor()
+            btn.tag = i + 1000
+            btn.addTarget(self, action: #selector(btnClick(btn:)), for: .touchUpInside)
+            self.view.addSubview(btn)
+        }
+    }
+    
+    @objc func btnClick(btn:UIButton) -> Void {
+//        btn.layer.borderColor = UIColor.white.cgColor
+//        btn.layer.borderWidth = 5
+        btn.setTitle("\(arc4random_uniform(10))", for: .normal)
+    }
+    
+    func timerTest() {
+        var timeCount = 8
+        var index = 0
+        // 在global线程里创建一个时间源
+        let timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+        // 设定这个时间源是每秒循环一次，立即开始
+       timer.schedule(deadline: .now(), repeating: 0.3)        // 设定时间源的触发事件
+        timer.setEventHandler(handler: {
+            
+            
+            // 返回主线程处理一些事件，更新UI等等
+            DispatchQueue.main.async {
+                print("-------timerTest:%d",timeCount);
+                for i in 0..<8 {
+                    if index > 0 {
+                        let btn = self.view.viewWithTag(index - 1 + 1000)!
+                        btn.layer.borderColor = UIColor.clear.cgColor
+                        btn.layer.borderWidth = 0
+                    }
+                    else {
+                        let btn = self.view.viewWithTag(7 + 1000)!
+                        btn.layer.borderColor = UIColor.clear.cgColor
+                        btn.layer.borderWidth = 0
+                    }
+                    let btn = self.view.viewWithTag(index + 1000)!
+                    btn.layer.borderColor = UIColor.white.cgColor
+                    btn.layer.borderWidth = 5
+                }
+            }
+            
+            index += 1
+            // 每秒计时一次
+            timeCount = timeCount - 1
+            
+            if index == 8 {
+                timeCount = 8
+                index = 0
+            }
+            
+            // 时间到了取消时间源
+            if timeCount <= 0 {
+                timer.cancel()
+            }
+        })
+        // 启动时间源
+        timer.resume()
     }
     
     //播放音频资源
@@ -187,6 +250,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RhythmDyCell", for: indexPath) as! RhythmDyCell
         cell.backgroundColor = CGFloat(indexPath.row).truncatingRemainder(dividingBy: 2) > 0 ? UIColor.green : UIColor.purple
         cell.rhythmDyModel = dyDataSource[indexPath.row]
+//        if (selectPath != nil) {
+//            let data = dataSource[selectPath!.section]
+//            let rhythmModel = data[selectPath!.row] as? RhythmModel
+//            cell.cellBtnClick(btn: cell.cellBtn, rhythmModel: rhythmModel!)
+//        }
+        cell.btnTestBlock = {
+            print("scj111111")
+            if self.selectPath != nil {
+                let data = self.dataSource[self.selectPath!.section]
+                let rhythmModel = data[self.selectPath!.row] as? RhythmModel
+                let contains: Bool = cell.rhythmDyModel.rhythmArr.contains { model in
+                    return model == rhythmModel
+                }
+                if contains {
+                    let newDyModel = cell.rhythmDyModel.rhythmArr.filter { (item) -> Bool in
+                        return item != rhythmModel
+                    }
+                    cell.rhythmDyModel.rhythmArr = newDyModel
+                }
+                else {
+                    cell.rhythmDyModel.rhythmArr.append(rhythmModel!)
+                }
+                self.dyCollection.reloadData()
+            }
+        }
         
         return cell
     }
@@ -213,6 +301,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             selectPath = indexPath
         }
         else {
+            return
             print("-------row:%d",indexPath.row);
             let dyModel = self.dyDataSource[indexPath.row]
             if selectPath != nil {
@@ -231,8 +320,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                     dyModel.rhythmArr.append(rhythmModel!)
                 }
             }
-            dyCollection.reloadItems(at: [indexPath])
-//            dyCollection.reloadData()
+//            dyCollection.reloadItems(at: [indexPath])
+            dyCollection.reloadData()
         }
     }
     

@@ -12,7 +12,11 @@ import AVKit
 
 class RhythmDyCell: UICollectionViewCell {
     
+    var cellBtn:UIButton!
     var centerView: UIView!
+    
+    typealias btnBlock = () -> ()
+    public var btnTestBlock: btnBlock?
     
     var rhythmDyModel: RhythmDyModel! {
         didSet {
@@ -29,6 +33,8 @@ class RhythmDyCell: UICollectionViewCell {
                 if rhythmDyModel.flash {
                     self.playRhythmData(index: model.playerIndex!)
                 }
+//                cellBtn.isSelected = model.select
+//                centerView.backgroundColor = model.color
             }
         }
     }
@@ -57,12 +63,42 @@ class RhythmDyCell: UICollectionViewCell {
     
     private func creatUI() {
         self.layer.cornerRadius = 5
+        
+        cellBtn = UIButton()
+        cellBtn.addTarget(self, action: #selector(cellBtnClick), for: .touchUpInside)
+        self.addSubview(cellBtn)
+        cellBtn.snp.makeConstraints { make in
+            make.edges.equalTo(0)
+        }
+        
         centerView = UIView()
         centerView.isHidden = true
-        self.addSubview(centerView)
+        cellBtn.addSubview(centerView)
         centerView?.snp.makeConstraints({ make in
-            make.center.equalTo(self)
+            make.center.equalTo(cellBtn)
             make.size.equalTo(CGSize.init(width: 10, height: 10))
         })
+    }
+    
+    @objc func cellBtnClick() -> Void {
+        
+        print("scj0000")
+        btnTestBlock?()
+//        btn.isSelected = !btn.isSelected
+//        centerView?.isHidden = btn.isSelected
+//        centerView?.backgroundColor = btn.isSelected ? UIColor.clear : kRandomColor()
+        
+//        let contains: Bool = rhythmDyModel.rhythmArr.contains { model in
+//            return model == rhythmModel
+//        }
+//        if contains {
+//            let newDyModel = rhythmDyModel.rhythmArr.filter { (item) -> Bool in
+//                return item != rhythmModel
+//            }
+//            rhythmDyModel.rhythmArr = newDyModel
+//        }
+//        else {
+//            rhythmDyModel.rhythmArr.append(rhythmModel)
+//        }
     }
 }
