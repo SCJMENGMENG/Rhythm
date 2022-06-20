@@ -58,6 +58,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var index = 0
     var selectPath:IndexPath?
+    
+    var square:UIView!
+    var duration:CFTimeInterval = 1
+    var pathLayer:CAShapeLayer!
 
     //https://sc.chinaz.com/yinxiao/index_23.html
     override func viewDidLoad() {
@@ -69,6 +73,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         startTimer()
         timerTest()
+        pathAnimation()
     }
 
     func initData() -> Void {
@@ -112,6 +117,74 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 //        btn.layer.borderColor = UIColor.white.cgColor
 //        btn.layer.borderWidth = 5
         btn.setTitle("\(arc4random_uniform(10))", for: .normal)
+    }
+    
+    func pathAnimation() {
+        square = UIView(frame: CGRect(x: 10, y: 200, width: 40, height: 60))
+        square.backgroundColor = UIColor.clear
+        square.layer.borderColor = UIColor.white.cgColor
+        square.layer.borderWidth = 5
+        
+        let opaqueAnimate = CABasicAnimation(keyPath: "opacity")
+        opaqueAnimate.fromValue = 0.1
+        opaqueAnimate.toValue = 1
+        opaqueAnimate.repeatCount = MAXFLOAT
+        opaqueAnimate.duration = 1
+        opaqueAnimate.fillMode = CAMediaTimingFillMode.forwards
+        opaqueAnimate.isRemovedOnCompletion = false
+        
+        let layer = square.layer
+//        layer.add(opaqueAnimate, forKey: "opacityAnimate")
+        
+        let animation1 = CATransition()
+        animation1.type = CATransitionType.moveIn
+        animation1.subtype = CATransitionSubtype.fromRight
+        animation1.duration = 2.0
+//        layer.add(animation1, forKey: nil)
+        
+        let keyAnimate = CAKeyframeAnimation(keyPath: "position")
+        let value0 = NSValue.init(cgPoint: CGPoint(x: 30, y: 230))
+        let value1 = NSValue.init(cgPoint: CGPoint(x: 80, y: 230))
+        let value2 = NSValue.init(cgPoint: CGPoint(x: 130, y: 230))
+        let value3 = NSValue.init(cgPoint: CGPoint(x: 180, y: 230))
+        let value4 = NSValue.init(cgPoint: CGPoint(x: 230, y: 230))
+        let value5 = NSValue.init(cgPoint: CGPoint(x: 280, y: 230))
+        let value6 = NSValue.init(cgPoint: CGPoint(x: 330, y: 230))
+        let value7 = NSValue.init(cgPoint: CGPoint(x: 380, y: 230))
+        let value8 = NSValue.init(cgPoint: CGPoint(x: 30, y: 300))
+        let value9 = NSValue.init(cgPoint: CGPoint(x: 80, y: 300))
+        let value10 = NSValue.init(cgPoint: CGPoint(x: 130, y: 300))
+        let value11 = NSValue.init(cgPoint: CGPoint(x: 180, y: 300))
+        let value12 = NSValue.init(cgPoint: CGPoint(x: 230, y: 300))
+        let value13 = NSValue.init(cgPoint: CGPoint(x: 280, y: 300))
+        let value14 = NSValue.init(cgPoint: CGPoint(x: 330, y: 300))
+        let value15 = NSValue.init(cgPoint: CGPoint(x: 380, y: 300))
+        let value16 = NSValue.init(cgPoint: CGPoint(x: 30, y: 370))
+        let value17 = NSValue.init(cgPoint: CGPoint(x: 80, y: 370))
+        let value18 = NSValue.init(cgPoint: CGPoint(x: 130, y: 370))
+        let value19 = NSValue.init(cgPoint: CGPoint(x: 180, y: 370))
+        let value20 = NSValue.init(cgPoint: CGPoint(x: 230, y: 370))
+        let value21 = NSValue.init(cgPoint: CGPoint(x: 280, y: 370))
+        let value22 = NSValue.init(cgPoint: CGPoint(x: 330, y: 370))
+        let value23 = NSValue.init(cgPoint: CGPoint(x: 380, y: 370))
+        let value24 = NSValue.init(cgPoint: CGPoint(x: 30, y: 440))
+        let value25 = NSValue.init(cgPoint: CGPoint(x: 80, y: 440))
+        let value26 = NSValue.init(cgPoint: CGPoint(x: 130, y: 440))
+        let value27 = NSValue.init(cgPoint: CGPoint(x: 180, y: 440))
+        let value28 = NSValue.init(cgPoint: CGPoint(x: 230, y: 440))
+        let value29 = NSValue.init(cgPoint: CGPoint(x: 280, y: 440))
+        let value30 = NSValue.init(cgPoint: CGPoint(x: 330, y: 440))
+        let value31 = NSValue.init(cgPoint: CGPoint(x: 380, y: 440))
+        
+        keyAnimate.values = [value0,value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24,value25,value26,value27,value28,value29,value30,value31]
+        keyAnimate.autoreverses = false
+        keyAnimate.repeatCount = MAXFLOAT
+        keyAnimate.duration = 31.0
+        keyAnimate.fillMode = CAMediaTimingFillMode.forwards
+        keyAnimate.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeIn)
+        layer.add(keyAnimate, forKey: "position")
+        
+        self.view.addSubview(square)
     }
     
     func timerTest() {
@@ -217,7 +290,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
              DispatchQueue.main.async {
                  print("-------%d",timeCount);
 //                 self.dyCollection.reloadItems(at: [indexPathBefore,indexPath])
-                 self.dyCollection.reloadData()
+//                 self.dyCollection.reloadData()
              }
          })
          // 启动时间源
@@ -272,7 +345,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 else {
                     cell.rhythmDyModel.rhythmArr.append(rhythmModel!)
                 }
-                self.dyCollection.reloadData()
+//                self.dyCollection.reloadData()
             }
         }
         

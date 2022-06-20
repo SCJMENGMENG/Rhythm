@@ -100,5 +100,20 @@ class RhythmDyCell: UICollectionViewCell {
 //        else {
 //            rhythmDyModel.rhythmArr.append(rhythmModel)
 //        }
+        print("---btnClick")
+        
+        
+            centerView.isHidden = true
+            centerView.backgroundColor = UIColor.clear
+        for model in rhythmDyModel.rhythmArr {
+            //显示中间view颜色
+            if model.select {
+                centerView.isHidden = false
+                centerView.backgroundColor = model.color
+            }
+            if rhythmDyModel.flash {
+                self.playRhythmData(index: model.playerIndex!)
+            }
+        }
     }
 }
