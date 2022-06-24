@@ -25,6 +25,7 @@ let space = 5.0
 let dyItemW = (kW - 90) / 8.0
 let dyItemH = (kW - 90) / 8.0 + 20
 
+@available(iOS 14.0, *)
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     var collection: UICollectionView = {
@@ -62,6 +63,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var square:UIView!
     var duration:CFTimeInterval = 1
     var pathLayer:CAShapeLayer!
+    
+    var selectRhythmModel: RhythmModel!
 
     //https://sc.chinaz.com/yinxiao/index_23.html
     override func viewDidLoad() {
@@ -73,7 +76,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         startTimer()
         timerTest()
-        pathAnimation()
+//        pathAnimation()
     }
 
     func initData() -> Void {
@@ -98,25 +101,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func initUI() -> Void {
         collection.delegate = self
         collection.dataSource = self
-        dyCollection.delegate = self
-        dyCollection.dataSource = self
+//        dyCollection.delegate = self
+//        dyCollection.dataSource = self
         
         self.view.addSubview(collection)
-        self.view.addSubview(dyCollection)
+//        self.view.addSubview(dyCollection)
         
-        for i in 0..<8 {
-            let btn = UIButton(frame: CGRect(x: 10 + (40 + 10) * i, y: 100, width: 40, height: 40))
+        for i in 0..<32 {
+            let btn = RhythmBtn(frame: CGRect(x: 10 + (40 + 10) * (i % 8), y: 200 + (10 + 60) * (i / 8), width: 40, height: 60))
             btn.backgroundColor = kRandomColor()
             btn.tag = i + 1000
             btn.addTarget(self, action: #selector(btnClick(btn:)), for: .touchUpInside)
+            btn.rhythmDyModel = dyDataSource[i]
             self.view.addSubview(btn)
+            
+            print("x:\(10 + (40 + 10) * i % 8)-y:\(200 + (10 + 60) * i / 8)")
         }
     }
     
-    @objc func btnClick(btn:UIButton) -> Void {
+    @objc func btnClick(btn:RhythmBtn) -> Void {
 //        btn.layer.borderColor = UIColor.white.cgColor
 //        btn.layer.borderWidth = 5
-        btn.setTitle("\(arc4random_uniform(10))", for: .normal)
+//        btn.setTitle("\(arc4random_uniform(10))", for: .normal)
+//        btn.isSelected = !btn.isSelected
+//        btn.btnClick()
+        btn.selectMethod()
     }
     
     func pathAnimation() {
@@ -188,7 +197,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func timerTest() {
-        var timeCount = 8
+        var timeCount = 32
         var index = 0
         // 在global线程里创建一个时间源
         let timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
@@ -200,20 +209,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             // 返回主线程处理一些事件，更新UI等等
             DispatchQueue.main.async {
                 print("-------timerTest:%d",timeCount);
-                for i in 0..<8 {
+                for i in 0..<32 {
                     if index > 0 {
                         let btn = self.view.viewWithTag(index - 1 + 1000)!
                         btn.layer.borderColor = UIColor.clear.cgColor
                         btn.layer.borderWidth = 0
                     }
                     else {
-                        let btn = self.view.viewWithTag(7 + 1000)!
+                        let btn = self.view.viewWithTag(31 + 1000)!
                         btn.layer.borderColor = UIColor.clear.cgColor
                         btn.layer.borderWidth = 0
                     }
-                    let btn = self.view.viewWithTag(index + 1000)!
+                    let btn = self.view.viewWithTag(index + 1000)! as! RhythmBtn
                     btn.layer.borderColor = UIColor.white.cgColor
                     btn.layer.borderWidth = 5
+//                    btn.sendActions(for: .touchUpInside)
+                    btn.timeSelect()
                 }
             }
             
@@ -221,8 +232,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             // 每秒计时一次
             timeCount = timeCount - 1
             
-            if index == 8 {
-                timeCount = 8
+            if index == 32 {
+                timeCount = 32
                 index = 0
             }
             
@@ -369,9 +380,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             rhythmModel?.playerIndex = indexPath.section * 16 + indexPath.row
             playRhythmData(index: indexPath.section * 16 + indexPath.row)
             collection.reloadData()
-            dyCollection.reloadData()
+//            dyCollection.reloadData()
             
             selectPath = indexPath
+            selectRhythmModel = rhythmModel
+            for i in 0..<32 {
+                let btn = self.view.viewWithTag(i + 1000)! as! RhythmBtn
+                btn.rhythmModel = rhythmModel
+            }
         }
         else {
             return
