@@ -12,4 +12,5 @@ class RhythmModel: NSObject {
     var select: Bool!
     var color: UIColor!
     var playerIndex: Int?
+    var dyModels = [RhythmDyModel]()
 }

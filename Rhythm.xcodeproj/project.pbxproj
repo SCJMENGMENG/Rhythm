@@ -12,7 +12,6 @@
 		7641B3E228588B1E0096EF94 /* RhythmDyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */; };
 		7641B3E4285893700096EF94 /* RhythmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E3285893700096EF94 /* RhythmModel.swift */; };
 		7641B3E6285893B80096EF94 /* RhythmDyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E5285893B80096EF94 /* RhythmDyModel.swift */; };
-		76B36FBF2865BA2B00BCB6EF /* RhythmBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B36FBE2865BA2B00BCB6EF /* RhythmBtn.swift */; };
 		76E9FC8128518C1C000E55D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8028518C1C000E55D8 /* AppDelegate.swift */; };
 		76E9FC8328518C1C000E55D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8228518C1C000E55D8 /* SceneDelegate.swift */; };
 		76E9FC8528518C1C000E55D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8428518C1C000E55D8 /* ViewController.swift */; };
@@ -47,7 +46,6 @@
 		7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmDyCell.swift; sourceTree = "<group>"; };
 		7641B3E3285893700096EF94 /* RhythmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmModel.swift; sourceTree = "<group>"; };
 		7641B3E5285893B80096EF94 /* RhythmDyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmDyModel.swift; sourceTree = "<group>"; };
-		76B36FBE2865BA2B00BCB6EF /* RhythmBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmBtn.swift; sourceTree = "<group>"; };
 		76E9FC7D28518C1C000E55D8 /* Rhythm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rhythm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76E9FC8028518C1C000E55D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76E9FC8228518C1C000E55D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 		7641B3DB285877500096EF94 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				76B36FBE2865BA2B00BCB6EF /* RhythmBtn.swift */,
 				7641B3DC285879670096EF94 /* RhythmCell.swift */,
 				7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */,
 				7641B3E3285893700096EF94 /* RhythmModel.swift */,
@@ -317,7 +314,6 @@
 			files = (
 				7641B3E228588B1E0096EF94 /* RhythmDyCell.swift in Sources */,
 				76E9FC8528518C1C000E55D8 /* ViewController.swift in Sources */,
-				76B36FBF2865BA2B00BCB6EF /* RhythmBtn.swift in Sources */,
 				76E9FC8128518C1C000E55D8 /* AppDelegate.swift in Sources */,
 				7641B3E6285893B80096EF94 /* RhythmDyModel.swift in Sources */,
 				7641B3E4285893700096EF94 /* RhythmModel.swift in Sources */,
