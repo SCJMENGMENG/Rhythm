@@ -166,10 +166,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func playVideo(index:Int) -> Void {
         //查看闪动的index对应的dycell是否被选中
-        let dyModel = self.dyDataSource[index]
-        
-        if dyModel.viewSelect && self.selectRhythmModel != nil {
-            self.playRhythmData(index: self.selectRhythmModel.playerIndex!)
+//        let dyModel = self.dyDataSource[index]
+//
+//        if dyModel.viewSelect && self.selectRhythmModel != nil {
+//            self.playRhythmData(index: self.selectRhythmModel.playerIndex!)
+//        }
+        for arr in dataSource {
+            for item in arr {
+                let model = item as! RhythmModel
+                for (i,dyModel) in model.dyModels.enumerated() {
+                    if dyModel.viewSelect && i == index {
+                        self.playRhythmData(index: model.playerIndex!)
+                    }
+                }
+            }
         }
     }
     
@@ -241,6 +251,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             selectRhythmModel = rhythmModel
             dyDataSource = selectRhythmModel.dyModels
             
+            //播放
+            playRhythmData(index: selectRhythmModel!.playerIndex!)
+            
             collection.reloadData()
             dyCollection.reloadData()
         }
@@ -257,9 +270,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             //刷新cell
             dyCollection.reloadItems(at: [indexPath])
-            
-            //播放
-            playRhythmData(index: selectRhythmModel!.playerIndex!)
         }
     }
     
