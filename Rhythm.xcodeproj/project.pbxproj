@@ -12,6 +12,20 @@
 		7641B3E228588B1E0096EF94 /* RhythmDyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */; };
 		7641B3E4285893700096EF94 /* RhythmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E3285893700096EF94 /* RhythmModel.swift */; };
 		7641B3E6285893B80096EF94 /* RhythmDyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B3E5285893B80096EF94 /* RhythmDyModel.swift */; };
+		7669360628A4AD4A00D6B571 /* RhythmPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7669360528A4AD4A00D6B571 /* RhythmPlayer.swift */; };
+		7669361528A5FEBE00D6B571 /* bg_23.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360728A5FEBB00D6B571 /* bg_23.mp3 */; };
+		7669361628A5FEBE00D6B571 /* bg_28.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360828A5FEBC00D6B571 /* bg_28.mp3 */; };
+		7669361728A5FEBE00D6B571 /* bg_30.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360928A5FEBC00D6B571 /* bg_30.mp3 */; };
+		7669361828A5FEBE00D6B571 /* bg_25.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360A28A5FEBC00D6B571 /* bg_25.mp3 */; };
+		7669361928A5FEBE00D6B571 /* bg_21.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360B28A5FEBC00D6B571 /* bg_21.mp3 */; };
+		7669361A28A5FEBE00D6B571 /* bg_24.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360C28A5FEBC00D6B571 /* bg_24.mp3 */; };
+		7669361B28A5FEBE00D6B571 /* bg_31.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360D28A5FEBC00D6B571 /* bg_31.mp3 */; };
+		7669361C28A5FEBE00D6B571 /* bg_19.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360E28A5FEBD00D6B571 /* bg_19.mp3 */; };
+		7669361D28A5FEBE00D6B571 /* bg_26.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669360F28A5FEBD00D6B571 /* bg_26.mp3 */; };
+		7669361E28A5FEBE00D6B571 /* bg_20.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669361028A5FEBD00D6B571 /* bg_20.mp3 */; };
+		7669361F28A5FEBE00D6B571 /* bg_27.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669361128A5FEBD00D6B571 /* bg_27.mp3 */; };
+		7669362128A5FEBE00D6B571 /* bg_29.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669361328A5FEBD00D6B571 /* bg_29.mp3 */; };
+		7669362228A5FEBE00D6B571 /* bg_22.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7669361428A5FEBD00D6B571 /* bg_22.mp3 */; };
 		76E9FC8128518C1C000E55D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8028518C1C000E55D8 /* AppDelegate.swift */; };
 		76E9FC8328518C1C000E55D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8228518C1C000E55D8 /* SceneDelegate.swift */; };
 		76E9FC8528518C1C000E55D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E9FC8428518C1C000E55D8 /* ViewController.swift */; };
@@ -46,6 +60,20 @@
 		7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmDyCell.swift; sourceTree = "<group>"; };
 		7641B3E3285893700096EF94 /* RhythmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmModel.swift; sourceTree = "<group>"; };
 		7641B3E5285893B80096EF94 /* RhythmDyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmDyModel.swift; sourceTree = "<group>"; };
+		7669360528A4AD4A00D6B571 /* RhythmPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmPlayer.swift; sourceTree = "<group>"; };
+		7669360728A5FEBB00D6B571 /* bg_23.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_23.mp3; sourceTree = "<group>"; };
+		7669360828A5FEBC00D6B571 /* bg_28.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_28.mp3; sourceTree = "<group>"; };
+		7669360928A5FEBC00D6B571 /* bg_30.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_30.mp3; sourceTree = "<group>"; };
+		7669360A28A5FEBC00D6B571 /* bg_25.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_25.mp3; sourceTree = "<group>"; };
+		7669360B28A5FEBC00D6B571 /* bg_21.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_21.mp3; sourceTree = "<group>"; };
+		7669360C28A5FEBC00D6B571 /* bg_24.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_24.mp3; sourceTree = "<group>"; };
+		7669360D28A5FEBC00D6B571 /* bg_31.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_31.mp3; sourceTree = "<group>"; };
+		7669360E28A5FEBD00D6B571 /* bg_19.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_19.mp3; sourceTree = "<group>"; };
+		7669360F28A5FEBD00D6B571 /* bg_26.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_26.mp3; sourceTree = "<group>"; };
+		7669361028A5FEBD00D6B571 /* bg_20.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_20.mp3; sourceTree = "<group>"; };
+		7669361128A5FEBD00D6B571 /* bg_27.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_27.mp3; sourceTree = "<group>"; };
+		7669361328A5FEBD00D6B571 /* bg_29.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_29.mp3; sourceTree = "<group>"; };
+		7669361428A5FEBD00D6B571 /* bg_22.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bg_22.mp3; sourceTree = "<group>"; };
 		76E9FC7D28518C1C000E55D8 /* Rhythm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rhythm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76E9FC8028518C1C000E55D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76E9FC8228518C1C000E55D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +124,7 @@
 				7641B3E128588B1E0096EF94 /* RhythmDyCell.swift */,
 				7641B3E3285893700096EF94 /* RhythmModel.swift */,
 				7641B3E5285893B80096EF94 /* RhythmDyModel.swift */,
+				7669360528A4AD4A00D6B571 /* RhythmPlayer.swift */,
 			);
 			name = Class;
 			sourceTree = "<group>";
@@ -138,6 +167,19 @@
 		76E9FC9428520501000E55D8 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				7669360E28A5FEBD00D6B571 /* bg_19.mp3 */,
+				7669361028A5FEBD00D6B571 /* bg_20.mp3 */,
+				7669360B28A5FEBC00D6B571 /* bg_21.mp3 */,
+				7669361428A5FEBD00D6B571 /* bg_22.mp3 */,
+				7669360728A5FEBB00D6B571 /* bg_23.mp3 */,
+				7669360C28A5FEBC00D6B571 /* bg_24.mp3 */,
+				7669360A28A5FEBC00D6B571 /* bg_25.mp3 */,
+				7669360F28A5FEBD00D6B571 /* bg_26.mp3 */,
+				7669361128A5FEBD00D6B571 /* bg_27.mp3 */,
+				7669360828A5FEBC00D6B571 /* bg_28.mp3 */,
+				7669361328A5FEBD00D6B571 /* bg_29.mp3 */,
+				7669360928A5FEBC00D6B571 /* bg_30.mp3 */,
+				7669360D28A5FEBC00D6B571 /* bg_31.mp3 */,
 				76E9FC9628520683000E55D8 /* bg_0.mp3 */,
 				76E9FCA628520683000E55D8 /* bg_1.mp3 */,
 				76E9FC9B28520683000E55D8 /* bg_2.mp3 */,
@@ -240,20 +282,33 @@
 			files = (
 				76E9FCB628520684000E55D8 /* bg_10.mp3 in Resources */,
 				76E9FCB228520684000E55D8 /* bg_12.mp3 in Resources */,
+				7669361D28A5FEBE00D6B571 /* bg_26.mp3 in Resources */,
+				7669361828A5FEBE00D6B571 /* bg_25.mp3 in Resources */,
 				76E9FCB528520684000E55D8 /* bg_16.mp3 in Resources */,
 				76E9FCAD28520684000E55D8 /* bg_15.mp3 in Resources */,
 				76E9FCAA28520684000E55D8 /* bg_18.mp3 in Resources */,
 				76E9FCA828520684000E55D8 /* bg_6.mp3 in Resources */,
 				76E9FCB828520684000E55D8 /* bg_8.mp3 in Resources */,
+				7669361528A5FEBE00D6B571 /* bg_23.mp3 in Resources */,
+				7669361A28A5FEBE00D6B571 /* bg_24.mp3 in Resources */,
+				7669361928A5FEBE00D6B571 /* bg_21.mp3 in Resources */,
+				7669361F28A5FEBE00D6B571 /* bg_27.mp3 in Resources */,
 				76E9FCB428520684000E55D8 /* bg_14.mp3 in Resources */,
+				7669362128A5FEBE00D6B571 /* bg_29.mp3 in Resources */,
+				7669361628A5FEBE00D6B571 /* bg_28.mp3 in Resources */,
 				76E9FCB928520684000E55D8 /* bg_1.mp3 in Resources */,
 				76E9FCAF28520684000E55D8 /* bg_9.mp3 in Resources */,
+				7669361C28A5FEBE00D6B571 /* bg_19.mp3 in Resources */,
+				7669361E28A5FEBE00D6B571 /* bg_20.mp3 in Resources */,
 				76E9FCB128520684000E55D8 /* bg_11.mp3 in Resources */,
 				76E9FCA928520684000E55D8 /* bg_0.mp3 in Resources */,
+				7669361B28A5FEBE00D6B571 /* bg_31.mp3 in Resources */,
 				76E9FCBA28520684000E55D8 /* bg_4.mp3 in Resources */,
 				76E9FCB028520684000E55D8 /* bg_3.mp3 in Resources */,
 				76E9FC8D28518C1D000E55D8 /* LaunchScreen.storyboard in Resources */,
+				7669362228A5FEBE00D6B571 /* bg_22.mp3 in Resources */,
 				76E9FCAB28520684000E55D8 /* bg_13.mp3 in Resources */,
+				7669361728A5FEBE00D6B571 /* bg_30.mp3 in Resources */,
 				76E9FCAE28520684000E55D8 /* bg_2.mp3 in Resources */,
 				76E9FCB328520684000E55D8 /* bg_5.mp3 in Resources */,
 				76E9FC8A28518C1D000E55D8 /* Assets.xcassets in Resources */,
@@ -318,6 +373,7 @@
 				7641B3E6285893B80096EF94 /* RhythmDyModel.swift in Sources */,
 				7641B3E4285893700096EF94 /* RhythmModel.swift in Sources */,
 				76E9FC8328518C1C000E55D8 /* SceneDelegate.swift in Sources */,
+				7669360628A4AD4A00D6B571 /* RhythmPlayer.swift in Sources */,
 				7641B3DD285879670096EF94 /* RhythmCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
