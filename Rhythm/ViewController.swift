@@ -25,8 +25,39 @@ let space = 5.0
 let dyItemW = (kW - 90) / 8.0
 let dyItemH = (kW - 90) / 8.0 + 20
 
+/**
+ //定义方式一
+ var array1 = [[Int]]()
+  
+ //定义方式二
+ var array2 = Array<Array<Int>>()
+  
+ array1 = [
+   [13,1,4],
+   [5,1,7,6]
+ ]
+  
+ array2 = array1
+  
+ //　一维数组的定义
+ var v = [Int]()
+ v = [4,5,7,8]
+ array2.append(v)
+  
+  
+ println(array1)
+ println(array2)
+  
+ //数组的遍历
+ for var i=0; i<array1.count; i++ {
+   for var j=0; j<array1[i].count; j++ {
+     println(array1[i][j])
+   }
+ }
+ */
+
 @available(iOS 14.0, *)
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, AVAudioPlayerDelegate {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
@@ -58,148 +89,42 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var dataSource = [NSMutableArray]()
     var dyDataSource = [RhythmDyModel]()
-    var videoSource = [[Int]](repeating: [], count: 32)
+    var filePathsArr = [NSMutableArray]()
+//    var filePathsArr = Array<Array<Int>>()
     
     var index:Int = 0
     
-    var square:UIView!
-    var duration:CFTimeInterval = 1
-    var pathLayer:CAShapeLayer!
-    
     var selectRhythmModel: RhythmModel!
-
-    var audioPlayer: AVAudioPlayer = AVAudioPlayer();
 
     //https://sc.chinaz.com/yinxiao/index_23.html
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.black
+        
         initData()
         initUI()
         
         startTimer()
-        
-//        let btn = UIButton()
-//        btn.frame = CGRect(x: 10, y: 10, width: 100, height: 100)
-//        btn.backgroundColor = kRandomColor()
-//        btn.addTarget(self, action: #selector(btnclick), for: UIControl.Event.touchUpInside)
-//        self.view.addSubview(btn)
-//
-//        let btn2 = UIButton()
-//        btn2.frame = CGRect(x: 110, y: 10, width: 100, height: 100)
-//        btn2.backgroundColor = kRandomColor()
-//        btn2.addTarget(self, action: #selector(btnclick2), for: UIControl.Event.touchUpInside)
-//        self.view.addSubview(btn2)
-    }
-    
-    @objc func btnclick2() -> Void {
-//        let rhythmPlayer = RhythmPlayer.init(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-//        rhythmPlayer.playeXXX([0,2,15])
-        let rhythmPlayer = RhythmPlayer()
-        rhythmPlayer.preparePlay([0,2,15])
-        rhythmPlayer.exportPlayBlock = { (filePath) in
-            try! self.audioPlayer = AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
-            self.audioPlayer.delegate = self
-            self.audioPlayer.prepareToPlay()
-            self.audioPlayer.play()
-        }
-    }
-    @objc func btnclick() -> Void {
-        
-        //本地音频文件的url
-        let audioPath:String = Bundle.main.path(forResource: "bg_\(0)", ofType: "mp3")!
-        let audioPath1:String = Bundle.main.path(forResource: "bg_\(2)", ofType: "mp3")!
-        let audioPath2:String = Bundle.main.path(forResource: "bg_\(15)", ofType: "mp3")!
-        let url = URL.init(fileURLWithPath: audioPath)
-        let url1 = URL.init(fileURLWithPath: audioPath1)
-        let url2 = URL.init(fileURLWithPath: audioPath2)
-        //将源文件转换为可处理资源
-        let originalAsset: AVURLAsset = AVURLAsset.init(url: url)
-        let originalAsset1: AVURLAsset = AVURLAsset.init(url: url1)
-        let originalAsset2: AVURLAsset = AVURLAsset.init(url: url2)
-        //合成音频文件，第一步：创建AVMutableComposition
-        let composition:AVMutableComposition = AVMutableComposition()
-        //创建音频轨道素材
-        let appendedAudioTrack:AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
-        let appendedAudioTrack1:AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
-        let appendedAudioTrack2:AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
-        //将再加工可用于拼接的音轨材料
-        let assetTrack:AVAssetTrack = originalAsset.tracks(withMediaType: AVMediaType.audio).first!
-        let assetTrack1:AVAssetTrack = originalAsset1.tracks(withMediaType: AVMediaType.audio).first!
-        let assetTrack2:AVAssetTrack = originalAsset2.tracks(withMediaType: AVMediaType.audio).first!
-        //控制时间范围
-        let timeRange = CMTimeRangeMake(start: CMTime.zero, duration: originalAsset.duration)
-        let timeRange1 = CMTimeRangeMake(start: CMTime.zero, duration: originalAsset1.duration)
-        let timeRange2 = CMTimeRangeMake(start: CMTime.zero, duration: originalAsset2.duration)
-        //音频合并，插入音轨文件，音轨拼接
-        try! appendedAudioTrack.insertTimeRange(timeRange, of: assetTrack, at: CMTime.zero)
-        try! appendedAudioTrack1.insertTimeRange(timeRange1, of: assetTrack1, at: CMTime.zero)
-        try! appendedAudioTrack2.insertTimeRange(timeRange2, of: assetTrack2, at: CMTime.zero)
-        
-        //导出合并后的音频文件
-        let exportSession: AVAssetExportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A)!
-        
-        let realPath = NSHomeDirectory() + "/records/total.m4a"
-        print(realPath)
-//        exportSession.outputURL = URL(fileURLWithPath: realPath)
-        let filePath = createFilePath()
-        print(filePath)
-        exportSession.outputURL = URL(fileURLWithPath: filePath)
-        exportSession.outputFileType = AVFileType.m4a
-        exportSession.exportAsynchronously(completionHandler: {() -> Void in
-            print("exportSession...",exportSession,exportSession.error as Any)
-            switch exportSession.status {
-            case.failed:
-                print("failed")
-                break
-            case.completed:
-                print("completed")
-//                let player = AVPlayer(url: URL(fileURLWithPath: filePath))
-//                let playLayer = AVPlayerLayer.init(player: player)
-//                self.view.layer.addSublayer(playLayer)
-//                player.play()
-                
-//                var soundID : SystemSoundID = 0
-//                AudioServicesCreateSystemSoundID(URL(fileURLWithPath: filePath) as CFURL, &soundID)
-//                AudioServicesPlaySystemSound(soundID)
-//
-//                AudioServicesPlaySystemSoundWithCompletion(soundID) {
-//                    print("音效文件播放完成")
-//                }
-//                let session = AVAudioSession.sharedInstance()
-//                try! session.setCategory(AVAudioSession.Category.playback)
-//                try! session.setActive(true)
-//                let player = try! AVAudioPlayer(data: FileManager.default.contents(atPath: filePath)!)
-////                player?.delegate = self
-//                player.prepareToPlay()
-//                player.play()
-                
-                try! self.audioPlayer = AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
-                self.audioPlayer.delegate = self
-                self.audioPlayer.prepareToPlay()
-                self.audioPlayer.play()
-                break
-            case.waiting:
-                print("waiting")
-                break
-            default:break
-            }
-        })
-        
-    }
-    
-    
-    func createFilePath() -> String {
-        return NSTemporaryDirectory() + String(Date().timeIntervalSince1970) + ".mp4"
     }
 
     func initData() -> Void {
+        selectRhythmModel = RhythmModel()
+        selectRhythmModel.play = AVPlayer.init()
+        let selectPlayLayer = AVPlayerLayer.init(layer: selectRhythmModel.play as Any)
+        self.view.layer.addSublayer(selectPlayLayer)
         
         for _ in 0..<32 {
             let model = RhythmDyModel()
             model.viewSelect = false
+            
+            model.play = AVPlayer.init()
+            let playLayer = AVPlayerLayer.init(layer: model.play as AVPlayer)
+            self.view.layer.addSublayer(playLayer)
+            
             dyDataSource.append(model)
+            filePathsArr.append(NSMutableArray.init())
+//            filePathsArr.append([])
         }
         
         for _ in 0..<2 {
@@ -209,13 +134,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 model.color = kRandomColor()
                 model.select = false
                 
-                //存空dymodel
-//                for _ in 0..<32 {
-//                    let dymodel = RhythmDyModel()
-//                    dymodel.viewSelect = false
-//                    model.dyModels.append(dymodel)
-//                }
-                //深拷贝
+                //深拷贝 否则32个dyModels指向同一个地址
                 model.dyModels = dyDataSource.map({$0.copy() as! RhythmDyModel})
                 
                 data.add(model)
@@ -283,44 +202,24 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     //播放所有该cell打上的video
     func playVideo(index:Int) -> Void {
         
-        //内存爆炸
-//        for item in videoSource[index] {
-//            self.playRhythmData(index: item)
-//        }
-        
-        if videoSource[index].count == 0 {
+        let dyModel = self.dyDataSource[index];
+        if (dyModel.filePath == nil) {
             return
         }
-        
-        let rhythmPlayer = RhythmPlayer()
-        rhythmPlayer.preparePlay(videoSource[index])
-        rhythmPlayer.exportPlayBlock = { (filePath) in
-            //无声音
-//            var audioPlayer: AVAudioPlayer = AVAudioPlayer();
-//            try! audioPlayer = AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
-//            audioPlayer.delegate = self
-//            audioPlayer.prepareToPlay()
-//            audioPlayer.play()
-            
-            
-            let playerItem = AVPlayerItem.init(url: URL(fileURLWithPath: filePath))
-            let play = AVPlayer.init(playerItem: playerItem)
-            let playLayer = AVPlayerLayer.init(player: play)
-            self.view.layer.addSublayer(playLayer)
-            play.play()
-        }
+        let playerItem = AVPlayerItem.init(url: URL(fileURLWithPath: dyModel.filePath!))
+        dyModel.play = AVPlayer.init(playerItem: playerItem)
+        dyModel.play.play()
     }
     
     //播放音频资源
-    func playRhythmData(index:Int) -> Void {
+    func playRhythmData() -> Void {
+        let index = selectRhythmModel!.playerIndex!
         let audioPath = Bundle.main.path(forResource: "bg_\(index)", ofType: "mp3")
         if let filePath = audioPath {
             let url = URL(fileURLWithPath: filePath)
             let playerItem = AVPlayerItem.init(url: url)
-            let play = AVPlayer.init(playerItem: playerItem)
-            let playLayer = AVPlayerLayer.init(player: play)
-            self.view.layer.addSublayer(playLayer)
-            play.play()
+            selectRhythmModel.play = AVPlayer.init(playerItem: playerItem)
+            selectRhythmModel.play.play()
         }
     }
     
@@ -350,7 +249,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RhythmDyCell", for: indexPath) as! RhythmDyCell
         cell.backgroundColor = CGFloat(indexPath.row).truncatingRemainder(dividingBy: 2) > 0 ? UIColor.green : UIColor.purple
         
-        cell.dyModel = dyDataSource[indexPath.row]
+        let dyModel = dyDataSource[indexPath.row]
+        cell.dyModel = dyModel
         
         return cell
     }
@@ -377,13 +277,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             rhythmModel?.select = true
             rhythmModel?.playerIndex = indexPath.section * 16 + indexPath.row
             selectRhythmModel = rhythmModel
-            dyDataSource = selectRhythmModel.dyModels
+            
+            //先将32个数组里资源数组赋值给model里32个dyModel的数组
+            for (index,item) in rhythmModel!.dyModels.enumerated() {
+                item.filePaths = filePathsArr[index] as! [Int]
+//                item.filePaths = filePathsArr[index]
+            }
+            
+            dyDataSource = rhythmModel!.dyModels
             
             //播放
-            playRhythmData(index: selectRhythmModel!.playerIndex!)
+            playRhythmData()
             
             collection.reloadData()
             dyCollection.reloadData()
+            print("---scj--cell:\(selectRhythmModel.playerIndex!)")
         }
         else {
             
@@ -394,21 +302,26 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let dyModel = self.dyDataSource[indexPath.row]
             dyModel.viewSelect = !dyModel.viewSelect
             dyModel.color = selectRhythmModel.color
-            selectRhythmModel.dyModels[indexPath.row] = dyModel
             
-            //增加/删除选中的video
-            var videoArr = videoSource[indexPath.row]
-            if dyModel.viewSelect {
-                videoArr.append(selectRhythmModel.playerIndex!)
-            }
-            else {
-                for (index,item) in videoArr.enumerated() {
-                    if item == selectRhythmModel.playerIndex! {
-                        videoArr.remove(at: index)
-                    }
+            var filePaths = self.filePathsArr[indexPath.row]
+            
+            //有就先移除
+            for (index,item) in filePaths.enumerated() {
+                if (item as! Int == selectRhythmModel.playerIndex!) {
+                    filePaths.remove(item)
+//                    filePaths.remove(at: index)
+                    break
                 }
             }
-            videoSource[indexPath.row] = videoArr
+            
+            //增加选中的video
+            if dyModel.viewSelect {
+                print("---scj--playerIndex:\(selectRhythmModel.playerIndex!)")
+                filePaths.add(selectRhythmModel.playerIndex!)
+//                filePaths.append(selectRhythmModel.playerIndex!)
+            }
+            
+            dyModel.filePaths = filePaths as! [Int]
             
             //刷新cell
             dyCollection.reloadItems(at: [indexPath])
