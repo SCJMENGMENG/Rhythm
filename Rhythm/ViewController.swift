@@ -89,8 +89,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var dataSource = [NSMutableArray]()
     var dyDataSource = [RhythmDyModel]()
-    var filePathsArr = [NSMutableArray]()
-//    var filePathsArr = Array<Array<Int>>()
+//    var filePathsArr = [NSMutableArray]()
+    var filePathsArr = Array<Array<Int>>()
     
     var index:Int = 0
     
@@ -123,8 +123,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.view.layer.addSublayer(playLayer)
             
             dyDataSource.append(model)
-            filePathsArr.append(NSMutableArray.init())
-//            filePathsArr.append([])
+//            filePathsArr.append(NSMutableArray.init())
+            filePathsArr.append([])
         }
         
         for _ in 0..<2 {
@@ -280,8 +280,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             //先将32个数组里资源数组赋值给model里32个dyModel的数组
             for (index,item) in rhythmModel!.dyModels.enumerated() {
-                item.filePaths = filePathsArr[index] as! [Int]
-//                item.filePaths = filePathsArr[index]
+//                item.filePaths = filePathsArr[index] as! [Int]
+                item.filePaths = filePathsArr[index]
             }
             
             dyDataSource = rhythmModel!.dyModels
@@ -307,9 +307,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             //有就先移除
             for (index,item) in filePaths.enumerated() {
+                print("---dizhi:",Unmanaged.passUnretained(item as AnyObject).toOpaque())
                 if (item as! Int == selectRhythmModel.playerIndex!) {
-                    filePaths.remove(item)
-//                    filePaths.remove(at: index)
+//                    filePaths.remove(item)
+                    filePaths.remove(at: index)
                     break
                 }
             }
@@ -317,11 +318,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //增加选中的video
             if dyModel.viewSelect {
                 print("---scj--playerIndex:\(selectRhythmModel.playerIndex!)")
-                filePaths.add(selectRhythmModel.playerIndex!)
-//                filePaths.append(selectRhythmModel.playerIndex!)
+//                filePaths.add(selectRhythmModel.playerIndex!)
+                filePaths.append(selectRhythmModel.playerIndex!)
             }
             
             dyModel.filePaths = filePaths as! [Int]
+            self.filePathsArr[indexPath.row] = filePaths
             
             //刷新cell
             dyCollection.reloadItems(at: [indexPath])
